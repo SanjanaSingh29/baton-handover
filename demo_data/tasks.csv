@@ -1,0 +1,7 @@
+task,owner,status,due
+Fix login bug,Riya,In progress,2026-10-18
+Finish venue list,Aarav,In progress,2026-10-16
+Write demo script,Kabir,Not started,2026-10-22
+Renew hosting API key,,Not started,2026-10-25
+Test payment flow,,Blocked,2026-10-24
+Fix CSV import for old format,Meera,Not started,2026-10-20

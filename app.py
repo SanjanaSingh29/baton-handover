@@ -1,3 +1,4 @@
+"""Baton home page. Run with:  streamlit run app.py"""
 import streamlit as st
 
 import db
@@ -42,4 +43,9 @@ with right:
         "amber",
     )
 
-st.info("Step 1 complete: the app, database and theme are working. Next step: demo data and file parsing.")
+st.markdown("#### Start here")
+st.page_link("pages/1_Case_Setup.py", label="1. Case setup: create a case or load the demo project")
+st.page_link("pages/2_Ledger.py", label="2. Ledger: see every claim and its evidence status")
+st.page_link("pages/3_Review.py", label="3. Review: accept, edit or reject, then approve")
+st.page_link("pages/4_Role_View.py", label="4. Handover: the role-based view")
+st.page_link("pages/5_History.py", label="5. History: acknowledgements and versions")

@@ -1,0 +1,12 @@
+{
+  "messages": [
+    {"time": "2026-10-03 18:20", "author": "Aarav", "text": "Quick recap: I pushed for Streamlit because nobody has time to learn Flask before the fest, and we can deploy it free."},
+    {"time": "2026-10-05 21:05", "author": "Aarav", "text": "Ok so Riya will take the login bug and I will finish the venue list."},
+    {"time": "2026-10-07 10:12", "author": "Kabir", "text": "I already started on the login bug, it is in my branch, so I am taking it."},
+    {"time": "2026-10-08 19:40", "author": "Riya", "text": "Wait, I thought the login bug was mine? Let us settle this at the next meeting."},
+    {"time": "2026-10-09 11:30", "author": "Meera", "text": "Reminder: the hosting key expires on 25 October and Kabir has the only copy."},
+    {"time": "2026-10-12 17:02", "author": "Kabir", "text": "Every time we refresh the registration page the session resets, and this keeps happening after each deploy."},
+    {"time": "2026-10-14 20:15", "author": "Aarav", "text": "I am leaving after the beta because I graduate this year. Please keep the demo script with Kabir."},
+    {"time": "2026-10-15 09:50", "author": "Meera", "text": "The payment gateway sandbox needs approval before we can test fees, and I have no idea who we ask."}
+  ]
+}
