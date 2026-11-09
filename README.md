@@ -84,4 +84,21 @@ python -m unittest discover -s tests -v
 
 ## Technology
 
-Python, Streamlit, SQLite, pandas,
+Python, Streamlit, SQLite, pandas, python-dotenv, Google Gen AI SDK (Gemini).
+
+## Known limitations
+
+- Each claim cites one quote from one source. A claim reasoned from several sources is not yet supported.
+- Sensitivity tags are set by hand per source, a simplification of real organisational permissions.
+- Conflict detection compares claim subjects by word overlap and can miss or over-flag some cases. The lead reviews every claim.
+- Quotes must sit inside a single chunk, so a quote spanning two chunks is marked Unverified.
+- The demo has no real sign-in; roles are chosen from a dropdown.
+
+## Disclosure of AI assistance
+
+Claude (Anthropic) was used to plan this project and to help write and explain the code in this
+repository, including the database layer, parsers, verifier, extractor and Streamlit pages. The
+participant reviewed and ran the code. At run time the product uses a Gemini model to extract claims.
+Open-source libraries used: Streamlit, pandas, python-dotenv, google-genai.
+
+Development of this project started when the Round 2 window opened. Earlier work was research and planning only.
