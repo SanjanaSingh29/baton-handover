@@ -5,7 +5,9 @@
 Baton is a knowledge-handover web application built by team ROOT CAUSE for the CodersInPune Hackathon (We Code Coders). When someone leaves a project, Baton reads the project's own files, builds a ledger of decisions, owners, open work, risks and contacts, checks every statement against an exact quote from its source, and leaves the final decision to a person. Each role then sees only the claims it is allowed to see.
 
 **Live app:** https://baton-root-cause.streamlit.app/
+
 **Repository:** https://github.com/SanjanaSingh29/baton-handover
+
 **Team:** ROOT CAUSE (solo participant: Sanjana Singh, Bhagwan Parshuram Institute of Technology)
 
 ## The problem
