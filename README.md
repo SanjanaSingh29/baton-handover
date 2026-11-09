@@ -6,7 +6,7 @@ handover. Every statement links to an exact quote, is marked **Verified**, **Inf
 
 Built for the CodersInPune Hackathon (Round 2) by team **ROOT CAUSE** (Sanjana Singh, solo).
 
-**Live app:** _add your Streamlit link here after deployment_
+**Live app:** https://baton-root-cause.streamlit.app/
 
 ## The problem
 
