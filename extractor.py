@@ -14,8 +14,8 @@ from config import BASE_DIR, CLAIM_TYPES
 
 load_dotenv()
 
-DEFAULT_MODEL = "gemini-3.8-flash"  # change with LLM_MODEL in .env or Streamlit secrets
-FALLBACK_MODELS = ["gemini-3.7-flash"]  # tried if the main model name is not available
+DEFAULT_MODEL = "gemini-3.5-flash-lite"
+FALLBACK_MODELS = ["gemini-3.1-flash-lite"]
 CACHED_PATH = BASE_DIR / "demo_data" / "cached_claims.json"
 MAX_PROMPT_CHARS = 80000
 
