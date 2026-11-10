@@ -1,3 +1,4 @@
+"""Step 2 of the workflow: the AI proposes claims, then plain code verifies every one."""
 import json
 import os
 import re
@@ -126,8 +127,21 @@ def validate_claims(raw_items):
     return good, skipped
 
 
+def get_api_key():
+    """Read the key from .env / environment first, then from Streamlit secrets (hosted app)."""
+    key = os.getenv("GEMINI_API_KEY", "").strip()
+    if key:
+        return key
+    try:
+        import streamlit as st
+
+        return str(st.secrets.get("GEMINI_API_KEY", "")).strip()
+    except Exception:
+        return ""
+
+
 def call_gemini(prompt):
-    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+    api_key = get_api_key()
     if not api_key or api_key == "your-key-here":
         raise LLMUnavailable(
             "No GEMINI_API_KEY found. Add it to your .env file (see .env.example), "
