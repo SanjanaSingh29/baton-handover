@@ -14,7 +14,8 @@ from config import BASE_DIR, CLAIM_TYPES
 
 load_dotenv()
 
-DEFAULT_MODEL = "gemini-2.5-flash"  # change with LLM_MODEL in .env if Google renames it
+DEFAULT_MODEL = "gemini-3.8-flash"  # change with LLM_MODEL in .env or Streamlit secrets
+FALLBACK_MODELS = ["gemini-3.7-flash"]  # tried if the main model name is not available
 CACHED_PATH = BASE_DIR / "demo_data" / "cached_claims.json"
 MAX_PROMPT_CHARS = 80000
 
@@ -156,22 +157,24 @@ def call_gemini(prompt):
         ) from exc
 
     client = genai.Client(api_key=api_key)
-    model = os.getenv("LLM_MODEL", DEFAULT_MODEL)
-    last_error = None
-    for attempt in range(3):
-        try:
-            response = client.models.generate_content(
-                model=model,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    response_mime_type="application/json", temperature=0
-                ),
-            )
-            return response.text
-        except Exception as exc:  # network, quota, bad model name...
-            last_error = exc
-            time.sleep(2 * (attempt + 1))
-    raise LLMUnavailable(f"The AI call failed after 3 tries: {last_error}")
+    wanted = os.getenv("LLM_MODEL", "").strip() or DEFAULT_MODEL
+    models = [wanted] + [m for m in FALLBACK_MODELS if m != wanted]
+    errors = []
+    for model in models:
+        for attempt in range(2):
+            try:
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(response_mime_type="application/json"),
+                )
+                return response.text
+            except Exception as exc:  # network, quota, bad model name...
+                errors.append(f"{model}: {exc}")
+                if "404" in str(exc) or "NOT_FOUND" in str(exc):
+                    break  # this model name is not available, so try the next one
+                time.sleep(2 * (attempt + 1))
+    raise LLMUnavailable("The AI call failed. " + " | ".join(errors[-2:]))
 
 
 def run_extraction(case_id, use_cached=False):
