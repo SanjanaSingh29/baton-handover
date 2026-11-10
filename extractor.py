@@ -141,6 +141,17 @@ def get_api_key():
         return ""
 
 
+def _is_rate_limit(exc):
+    text = str(exc)
+    return "429" in text or "RESOURCE_EXHAUSTED" in text
+
+
+def _retry_seconds(exc, default=60):
+    """Seconds Google asks us to wait, read from the error text (e.g. 'Please retry in 55.3s')."""
+    match = re.search(r"retry in (\d+(?:\.\d+)?)s", str(exc), flags=re.IGNORECASE)
+    return int(float(match.group(1))) + 1 if match else default
+
+
 def call_gemini(prompt):
     api_key = get_api_key()
     if not api_key or api_key == "your-key-here":
@@ -171,6 +182,13 @@ def call_gemini(prompt):
                 return response.text
             except Exception as exc:  # network, quota, bad model name...
                 errors.append(f"{model}: {exc}")
+                if _is_rate_limit(exc):
+                    # Retrying straight away only uses up more of the free quota, so stop here.
+                    raise LLMUnavailable(
+                        "The free Gemini quota is busy (a limit of a few requests per minute was reached). "
+                        f"Please wait about {_retry_seconds(exc)} seconds and click Build handover once more, "
+                        "or choose the saved sample output."
+                    ) from exc
                 if "404" in str(exc) or "NOT_FOUND" in str(exc):
                     break  # this model name is not available, so try the next one
                 time.sleep(2 * (attempt + 1))
