@@ -19,4 +19,4 @@ Attendees: Aarav, Riya, Kabir, Meera
 
 ## Contacts
 
-- For server permissions, speak to Mr. Verma at the college IT office.
+- For server permissions, speak to Mr. Verma at the college IT office (it-office@college.example, 98765 43210).

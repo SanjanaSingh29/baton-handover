@@ -17,6 +17,7 @@ PALETTE = {
 STATUS_COLORS = {
     "Verified": ("#C0DD97", "#27500A"),
     "Inferred": ("#CECBF6", "#3C3489"),
+    "Stated": ("#F4C0D1", "#72243E"),
     "Conflicting": ("#FAC775", "#633806"),
     "Missing": ("#F5C4B3", "#712B13"),
     "Unverified": ("#EDE8E0", "#5F5E5A"),

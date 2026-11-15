@@ -2,6 +2,7 @@
 import streamlit as st
 
 import db
+import interview
 import state
 import ui
 import verifier
@@ -24,7 +25,7 @@ if not claims:
     st.stop()
 
 # Problem claims first, so the lead sees the risky ones early.
-PRIORITY = {"Conflicting": 0, "Missing": 1, "Unverified": 2, "Inferred": 3, "Verified": 4}
+PRIORITY = {"Conflicting": 0, "Missing": 1, "Unverified": 2, "Stated": 3, "Inferred": 4, "Verified": 5}
 claims.sort(key=lambda c: (PRIORITY.get(c["status"], 5), c["id"]))
 
 n_acc = sum(1 for c in claims if c["review_state"] == "accepted")
@@ -82,6 +83,8 @@ with col_claim:
         st.info("Baton found no source for this. Accept it if the gap is real and the successor should know about it.")
     elif claim["status"] == "Inferred":
         st.info("This is Baton's reasoning from the quote shown. It is an assumption, not a stated fact.")
+    elif claim["status"] == "Stated":
+        st.info("This comes from the person leaving, not from a project file. Accept it only if you trust the answer.")
 
 with col_evidence:
     if claim["status"] == "Missing":
@@ -91,6 +94,15 @@ with col_evidence:
             "Evidence",
             f'The quote the AI gave was not found in any source:<br><i>{ui.esc(claim["quote"])}</i>',
             "coral",
+        )
+    elif claim["status"] == "Stated":
+        given = interview.answer_for_claim(claim["id"])
+        who = f'{ui.esc(given["answered_by"])} on {ui.esc(given["created_at"])} UTC' if given else "the person leaving"
+        ui.tile(
+            "Stated by the person leaving",
+            f'<div class="baton-small">Answered by {who}</div>'
+            f'<div style="margin-top:8px;line-height:1.6">{ui.esc(claim["quote"])}</div>',
+            "pink",
         )
     elif source and claim["chunk_index"] is not None:
         chunk = db.get_chunk(source["id"], claim["chunk_index"])

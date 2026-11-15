@@ -26,7 +26,7 @@ if not claims:
     st.stop()
 
 counts = {s: sum(1 for c in claims if c["status"] == s) for s in STATUSES}
-colors = {"Verified": "green", "Inferred": "purple", "Conflicting": "amber", "Missing": "coral", "Unverified": "pink"}
+colors = {"Verified": "green", "Inferred": "purple", "Stated": "pink", "Conflicting": "amber", "Missing": "coral", "Unverified": "pink"}
 cols = st.columns(len(STATUSES))
 for col, status in zip(cols, STATUSES):
     with col:
@@ -42,7 +42,7 @@ left, right = st.columns([2, 1])
 with left:
     rows = ""
     for c in shown:
-        where = sources.get(c["source_id"], "no source")
+        where = "leaver interview" if c["status"] == "Stated" else sources.get(c["source_id"], "no source")
         left_html = (
             f'{ui.esc(c["statement"])}<br><span class="baton-small">'
             f'{ui.esc(c["claim_type"])} | {ui.esc(where)}</span>'
@@ -57,4 +57,5 @@ with right:
     )
     ui.tile("Timeline", body or "No dated events found.", "amber")
 
+st.page_link("pages/6_Interview.py", label="Answer the gap interview (questions for the person leaving)")
 st.page_link("pages/3_Review.py", label="Review and approve the claims")

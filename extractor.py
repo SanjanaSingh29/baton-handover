@@ -1,4 +1,3 @@
-"""Step 2 of the workflow: the AI proposes claims, then plain code verifies every one."""
 import json
 import os
 import re

@@ -29,8 +29,9 @@ with left:
         ui.row("1. Connect authorised sources", ui.badge("Open", ui.SENSITIVITY_COLORS))
         + ui.row("2. Reconstruct decisions, owners and risks")
         + ui.row("3. Verify every claim against its quote", ui.badge("Verified"))
-        + ui.row("4. Review and approve as the lead")
-        + ui.row("5. Hand over a role-based view"),
+        + ui.row("4. Interview the person leaving about gaps and conflicts", ui.badge("Stated"))
+        + ui.row("5. Review and approve as the lead")
+        + ui.row("6. Hand over a role-based view"),
         "pink",
     )
 with right:
@@ -38,6 +39,7 @@ with right:
         "Statuses",
         ui.row("Quote found in source", ui.badge("Verified"))
         + ui.row("Reasoned from clues", ui.badge("Inferred"))
+        + ui.row("Stated by the person leaving", ui.badge("Stated"))
         + ui.row("Sources disagree", ui.badge("Conflicting"))
         + ui.row("Nothing supports it", ui.badge("Missing")),
         "amber",
@@ -46,6 +48,7 @@ with right:
 st.markdown("#### Start here")
 st.page_link("pages/1_Case_Setup.py", label="1. Case setup: create a case or load the demo project")
 st.page_link("pages/2_Ledger.py", label="2. Ledger: see every claim and its evidence status")
+st.page_link("pages/6_Interview.py", label="Interview: answer questions about gaps and conflicts (do this before Review)")
 st.page_link("pages/3_Review.py", label="3. Review: accept, edit or reject, then approve")
 st.page_link("pages/4_Role_View.py", label="4. Handover: the role-based view")
 st.page_link("pages/5_History.py", label="5. History: acknowledgements and versions")

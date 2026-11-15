@@ -25,7 +25,7 @@ CLAIM_TYPES = [
 ]
 
 # Evidence statuses shown as badges.
-STATUSES = ["Verified", "Inferred", "Conflicting", "Missing", "Unverified"]
+STATUSES = ["Verified", "Inferred", "Stated", "Conflicting", "Missing", "Unverified"]
 
 # Review decisions made by the project lead.
 REVIEW_STATES = ["pending", "accepted", "rejected"]
